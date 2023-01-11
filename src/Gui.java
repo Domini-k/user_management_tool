@@ -14,6 +14,7 @@ public class Gui extends javax.swing.JFrame {
      */
     public Gui() {
         initComponents();
+//        Styling of buttons
         btnSearchUsers.setOpaque(false);
         btnSearchUsers.setContentAreaFilled(false);
         btnSearchUsers.setBorderPainted(false);
@@ -26,6 +27,11 @@ public class Gui extends javax.swing.JFrame {
         btnHome.setOpaque(false);
         btnHome.setContentAreaFilled(false);
         btnHome.setBorderPainted(false);
+//        Visibility of the panels
+        pnlDeleteUser.setVisible(false);
+        pnlSearchUser.setVisible(false);
+        pnlAddUser.setVisible(false);
+        pnlHome.setVisible(true);
     }
 
     /**
@@ -44,7 +50,7 @@ public class Gui extends javax.swing.JFrame {
         btnSearchUsers = new javax.swing.JButton();
         btnDeleteUsers = new javax.swing.JButton();
         pnlCenter = new javax.swing.JPanel();
-        pnlMainContent = new javax.swing.JPanel();
+        pnlHome = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -54,10 +60,16 @@ public class Gui extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         pnlAddUser = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        pnlSearchUser = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        pnlDeleteUser = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        pnlSearchUser = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        pnlDeleteUser = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("User management tool");
@@ -147,8 +159,8 @@ public class Gui extends javax.swing.JFrame {
         pnlCenter.setPreferredSize(new java.awt.Dimension(600, 600));
         pnlCenter.setLayout(new javax.swing.OverlayLayout(pnlCenter));
 
-        pnlMainContent.setBackground(new java.awt.Color(40, 75, 99));
-        pnlMainContent.setPreferredSize(new java.awt.Dimension(600, 600));
+        pnlHome.setBackground(new java.awt.Color(40, 75, 99));
+        pnlHome.setPreferredSize(new java.awt.Dimension(600, 600));
 
         jLabel1.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -179,33 +191,33 @@ public class Gui extends javax.swing.JFrame {
         jTextArea1.setCaretColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jTextArea1);
 
-        javax.swing.GroupLayout pnlMainContentLayout = new javax.swing.GroupLayout(pnlMainContent);
-        pnlMainContent.setLayout(pnlMainContentLayout);
-        pnlMainContentLayout.setHorizontalGroup(
-            pnlMainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMainContentLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlHomeLayout = new javax.swing.GroupLayout(pnlHome);
+        pnlHome.setLayout(pnlHomeLayout);
+        pnlHomeLayout.setHorizontalGroup(
+            pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHomeLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(pnlMainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMainContentLayout.createSequentialGroup()
-                        .addGroup(pnlMainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHomeLayout.createSequentialGroup()
+                        .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addContainerGap(305, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainContentLayout.createSequentialGroup()
-                        .addGroup(pnlMainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addContainerGap(127, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHomeLayout.createSequentialGroup()
+                        .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlMainContentLayout.createSequentialGroup()
+                            .addGroup(pnlHomeLayout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4)))
                         .addGap(25, 25, 25))))
         );
-        pnlMainContentLayout.setVerticalGroup(
-            pnlMainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMainContentLayout.createSequentialGroup()
+        pnlHomeLayout.setVerticalGroup(
+            pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHomeLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(pnlMainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addGap(80, 80, 80)
@@ -215,32 +227,54 @@ public class Gui extends javax.swing.JFrame {
                 .addGap(80, 80, 80)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
 
-        pnlCenter.add(pnlMainContent);
+        pnlCenter.add(pnlHome);
 
         pnlAddUser.setBackground(new java.awt.Color(40, 75, 99));
         pnlAddUser.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        jLabel8.setText("Option 1");
+        jLabel8.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel8.setText("Add user");
+
+        jLabel9.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel9.setText("Central access");
+
+        jLabel3.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("Add user");
 
         javax.swing.GroupLayout pnlAddUserLayout = new javax.swing.GroupLayout(pnlAddUser);
         pnlAddUser.setLayout(pnlAddUserLayout);
         pnlAddUserLayout.setHorizontalGroup(
             pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAddUserLayout.createSequentialGroup()
-                .addGap(241, 241, 241)
-                .addComponent(jLabel8)
-                .addContainerGap(491, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAddUserLayout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(102, 102, 102))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddUserLayout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(25, 25, 25))
         );
         pnlAddUserLayout.setVerticalGroup(
             pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAddUserLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel8)
-                .addContainerGap(535, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel8))
+                .addGap(80, 80, 80)
+                .addComponent(jLabel3)
+                .addContainerGap(423, Short.MAX_VALUE))
         );
 
         pnlCenter.add(pnlAddUser);
@@ -248,23 +282,45 @@ public class Gui extends javax.swing.JFrame {
         pnlSearchUser.setBackground(new java.awt.Color(40, 75, 99));
         pnlSearchUser.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        jLabel9.setText("Option 1");
+        jLabel10.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel10.setText("Search user");
+
+        jLabel15.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel15.setText("Central access");
+
+        jLabel16.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel16.setText("Search user");
 
         javax.swing.GroupLayout pnlSearchUserLayout = new javax.swing.GroupLayout(pnlSearchUser);
         pnlSearchUser.setLayout(pnlSearchUserLayout);
         pnlSearchUserLayout.setHorizontalGroup(
             pnlSearchUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSearchUserLayout.createSequentialGroup()
-                .addGap(241, 241, 241)
-                .addComponent(jLabel9)
-                .addContainerGap(491, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addGroup(pnlSearchUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlSearchUserLayout.createSequentialGroup()
+                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(102, 102, 102))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchUserLayout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 313, Short.MAX_VALUE)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(25, 25, 25))
         );
         pnlSearchUserLayout.setVerticalGroup(
             pnlSearchUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSearchUserLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel9)
-                .addContainerGap(535, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(pnlSearchUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel10))
+                .addGap(80, 80, 80)
+                .addComponent(jLabel16)
+                .addContainerGap(423, Short.MAX_VALUE))
         );
 
         pnlCenter.add(pnlSearchUser);
@@ -272,23 +328,45 @@ public class Gui extends javax.swing.JFrame {
         pnlDeleteUser.setBackground(new java.awt.Color(40, 75, 99));
         pnlDeleteUser.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        jLabel3.setText("Option 1");
+        jLabel17.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel17.setText("Delete user");
+
+        jLabel18.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel18.setText("Central access");
+
+        jLabel19.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel19.setText("Delete user");
 
         javax.swing.GroupLayout pnlDeleteUserLayout = new javax.swing.GroupLayout(pnlDeleteUser);
         pnlDeleteUser.setLayout(pnlDeleteUserLayout);
         pnlDeleteUserLayout.setHorizontalGroup(
             pnlDeleteUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDeleteUserLayout.createSequentialGroup()
-                .addGap(241, 241, 241)
-                .addComponent(jLabel3)
-                .addContainerGap(491, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addGroup(pnlDeleteUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDeleteUserLayout.createSequentialGroup()
+                        .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(102, 102, 102))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDeleteUserLayout.createSequentialGroup()
+                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(25, 25, 25))
         );
         pnlDeleteUserLayout.setVerticalGroup(
             pnlDeleteUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDeleteUserLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel3)
-                .addContainerGap(535, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(pnlDeleteUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel17))
+                .addGap(80, 80, 80)
+                .addComponent(jLabel19)
+                .addContainerGap(423, Short.MAX_VALUE))
         );
 
         pnlCenter.add(pnlDeleteUser);
@@ -301,19 +379,31 @@ public class Gui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        // TODO add your handling code here:
+        pnlDeleteUser.setVisible(false);
+        pnlSearchUser.setVisible(false);
+        pnlAddUser.setVisible(false);
+        pnlHome.setVisible(true);
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnAddUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUsersActionPerformed
-        // TODO add your handling code here:
+        pnlDeleteUser.setVisible(false);
+        pnlSearchUser.setVisible(false);
+        pnlAddUser.setVisible(true);
+        pnlHome.setVisible(false);
     }//GEN-LAST:event_btnAddUsersActionPerformed
 
     private void btnSearchUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchUsersActionPerformed
-        // TODO add your handling code here:
+        pnlDeleteUser.setVisible(false);
+        pnlSearchUser.setVisible(true);
+        pnlAddUser.setVisible(false);
+        pnlHome.setVisible(false);
     }//GEN-LAST:event_btnSearchUsersActionPerformed
 
     private void btnDeleteUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUsersActionPerformed
-        // TODO add your handling code here:
+        pnlDeleteUser.setVisible(true);
+        pnlSearchUser.setVisible(false);
+        pnlAddUser.setVisible(false);
+        pnlHome.setVisible(false);
     }//GEN-LAST:event_btnDeleteUsersActionPerformed
 
     /**
@@ -356,6 +446,12 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnSearchUsers;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -368,7 +464,7 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JPanel pnlAddUser;
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlDeleteUser;
-    private javax.swing.JPanel pnlMainContent;
+    private javax.swing.JPanel pnlHome;
     private javax.swing.JPanel pnlRoot;
     private javax.swing.JPanel pnlSearchUser;
     private javax.swing.JPanel pnlSide;
