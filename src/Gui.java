@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
+import BusinessLogic.Operations;
+import BusinessLogic.User;
 /**
  *
  * @author Dominik
@@ -12,7 +13,9 @@ public class Gui extends javax.swing.JFrame {
     /**
      * Creates new form Gui
      */
+    Operations o;
     public Gui() {
+        o=new Operations();
         initComponents();
 //        Styling of buttons
         btnSearchUsers.setOpaque(false);
@@ -54,14 +57,25 @@ public class Gui extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblNumberOfSystemUsers = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        taUsersList = new javax.swing.JTextArea();
         pnlAddUser = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        tfFirstName = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        tfSecondName = new javax.swing.JTextField();
+        tfNickName = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        tfContactMail = new javax.swing.JTextField();
+        cbValidationAddUser = new javax.swing.JCheckBox();
+        jLabel2 = new javax.swing.JLabel();
+        btnSubmitNewUser = new javax.swing.JButton();
         pnlSearchUser = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -175,21 +189,21 @@ public class Gui extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setText("Home");
 
-        jLabel6.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("The system is used by 0 users");
+        lblNumberOfSystemUsers.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        lblNumberOfSystemUsers.setForeground(new java.awt.Color(255, 255, 255));
+        lblNumberOfSystemUsers.setText("The system is used by 0 users");
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("Full list of users:");
 
-        jTextArea1.setBackground(new java.awt.Color(40, 75, 99));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setRows(5);
-        jTextArea1.setCaretColor(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jTextArea1);
+        taUsersList.setBackground(new java.awt.Color(40, 75, 99));
+        taUsersList.setColumns(20);
+        taUsersList.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        taUsersList.setForeground(new java.awt.Color(255, 255, 255));
+        taUsersList.setRows(5);
+        taUsersList.setCaretColor(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(taUsersList);
 
         javax.swing.GroupLayout pnlHomeLayout = new javax.swing.GroupLayout(pnlHome);
         pnlHome.setLayout(pnlHomeLayout);
@@ -200,7 +214,7 @@ public class Gui extends javax.swing.JFrame {
                 .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlHomeLayout.createSequentialGroup()
                         .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
+                            .addComponent(lblNumberOfSystemUsers)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addContainerGap(127, Short.MAX_VALUE))
@@ -223,11 +237,11 @@ public class Gui extends javax.swing.JFrame {
                 .addGap(80, 80, 80)
                 .addComponent(jLabel1)
                 .addGap(5, 5, 5)
-                .addComponent(jLabel6)
+                .addComponent(lblNumberOfSystemUsers)
                 .addGap(80, 80, 80)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
 
@@ -236,18 +250,68 @@ public class Gui extends javax.swing.JFrame {
         pnlAddUser.setBackground(new java.awt.Color(40, 75, 99));
         pnlAddUser.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        jLabel8.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(204, 204, 204));
         jLabel8.setText("Add user");
 
-        jLabel9.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("Central access");
 
-        jLabel3.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("MesloLGL Nerd Font", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Add user");
+
+        tfFirstName.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 12)); // NOI18N
+        tfFirstName.setToolTipText("");
+
+        jLabel6.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("First name:");
+
+        tfSecondName.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 12)); // NOI18N
+        tfSecondName.setToolTipText("");
+
+        tfNickName.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 12)); // NOI18N
+        tfNickName.setToolTipText("");
+
+        jLabel11.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Second name:");
+
+        jLabel12.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Nickname:");
+
+        jLabel13.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Contact e-mail:");
+
+        tfContactMail.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 12)); // NOI18N
+        tfContactMail.setToolTipText("");
+
+        cbValidationAddUser.setMaximumSize(new java.awt.Dimension(25, 25));
+        cbValidationAddUser.setMinimumSize(new java.awt.Dimension(25, 25));
+        cbValidationAddUser.setPreferredSize(new java.awt.Dimension(19, 19));
+        cbValidationAddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbValidationAddUserActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Validation on?");
+
+        btnSubmitNewUser.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        btnSubmitNewUser.setForeground(new java.awt.Color(0, 0, 0));
+        btnSubmitNewUser.setText("Submit new user");
+        btnSubmitNewUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitNewUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlAddUserLayout = new javax.swing.GroupLayout(pnlAddUser);
         pnlAddUser.setLayout(pnlAddUserLayout);
@@ -258,23 +322,69 @@ public class Gui extends javax.swing.JFrame {
                 .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAddUserLayout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(102, 102, 102))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddUserLayout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(25, 25, 25))
+                        .addGap(75, 75, 75))
+                    .addGroup(pnlAddUserLayout.createSequentialGroup()
+                        .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlAddUserLayout.createSequentialGroup()
+                                .addComponent(btnSubmitNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(pnlAddUserLayout.createSequentialGroup()
+                                        .addGap(39, 39, 39)
+                                        .addComponent(cbValidationAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(pnlAddUserLayout.createSequentialGroup()
+                                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfContactMail, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfNickName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfSecondName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlAddUserLayout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                        .addGap(229, 229, 229)
+                        .addComponent(jLabel9)
+                        .addGap(25, 25, 25))))
         );
         pnlAddUserLayout.setVerticalGroup(
             pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAddUserLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddUserLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel8))
                 .addGap(80, 80, 80)
                 .addComponent(jLabel3)
-                .addContainerGap(423, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(tfSecondName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(tfNickName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(tfContactMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSubmitNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlAddUserLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, 0)
+                        .addComponent(cbValidationAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(132, 132, 132))
         );
 
         pnlCenter.add(pnlAddUser);
@@ -406,6 +516,23 @@ public class Gui extends javax.swing.JFrame {
         pnlHome.setVisible(false);
     }//GEN-LAST:event_btnDeleteUsersActionPerformed
 
+    private void cbValidationAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbValidationAddUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbValidationAddUserActionPerformed
+
+    private void btnSubmitNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitNewUserActionPerformed
+        // TODO add your handling code here:
+        String firstName = tfFirstName.getText();
+        String secondName = tfSecondName.getText();
+        String nickname = tfNickName.getText();
+        String contactMail = tfContactMail.getText();
+        o.addNewUser(new User(firstName, secondName, nickname, contactMail));
+        tfFirstName.setText("");
+        tfSecondName.setText("");
+        tfNickName.setText("");
+        tfContactMail.setText("");
+    }//GEN-LAST:event_btnSubmitNewUserActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -445,13 +572,19 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteUsers;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnSearchUsers;
+    private javax.swing.JButton btnSubmitNewUser;
+    private javax.swing.JCheckBox cbValidationAddUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -460,7 +593,7 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lblNumberOfSystemUsers;
     private javax.swing.JPanel pnlAddUser;
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlDeleteUser;
@@ -468,5 +601,10 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JPanel pnlRoot;
     private javax.swing.JPanel pnlSearchUser;
     private javax.swing.JPanel pnlSide;
+    private javax.swing.JTextArea taUsersList;
+    private javax.swing.JTextField tfContactMail;
+    private javax.swing.JTextField tfFirstName;
+    private javax.swing.JTextField tfNickName;
+    private javax.swing.JTextField tfSecondName;
     // End of variables declaration//GEN-END:variables
 }
