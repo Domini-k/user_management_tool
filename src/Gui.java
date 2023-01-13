@@ -56,6 +56,7 @@ public class Gui extends javax.swing.JFrame {
 //        Env variables after gui init
 //Set validation to be on as default
         cbValidationAddUser.doClick();
+
     }
 
     /**
@@ -706,7 +707,10 @@ public class Gui extends javax.swing.JFrame {
         pnlSearchUser.setVisible(true);
         pnlAddUser.setVisible(false);
         pnlHome.setVisible(false);
-        jlSearchUsersList.setModel(listModelSearch);
+                jlSearchUsersList.setModel(listModelSearch);
+        taUserFullInfo.setText("");
+        jlSearchUsersList.clearSelection();
+
         //        Refresh list of users in list in delete tab
         listModelSearch.clear();
 
@@ -728,6 +732,7 @@ public class Gui extends javax.swing.JFrame {
         pnlSearchUser.setVisible(false);
         pnlAddUser.setVisible(false);
         pnlHome.setVisible(false);
+
         jlDeleteUsersList.setModel(listModelDelete);
 
         //        Refresh list of users in list in delete tab
@@ -861,7 +866,8 @@ public class Gui extends javax.swing.JFrame {
     private void jlSearchUsersListItemSelected(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlSearchUsersListItemSelected
 
         int selectedIndex = jlSearchUsersList.getSelectedIndex();
-        User selectedUser = o.getMagazine().getUsers().get(selectedIndex);
+        if(selectedIndex>-1){
+                User selectedUser = o.getMagazine().getUsers().get(selectedIndex);
 
         taUserFullInfo.setText(
                 "User's first name: " + "\n" + selectedUser.getFirstName() + "\n"
@@ -869,6 +875,8 @@ public class Gui extends javax.swing.JFrame {
                 + "User's nickname: " + "\n" + selectedUser.getNickname() + "\n"
                 + "User's e-mail: " + "\n" + selectedUser.getContactEmail() + "\n"
         );
+        }
+
     }//GEN-LAST:event_jlSearchUsersListItemSelected
 
     /**
