@@ -4,16 +4,30 @@
  */
 import BusinessLogic.Operations;
 import BusinessLogic.User;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 /**
  *
  * @author Dominik
  */
 public class Gui extends javax.swing.JFrame {
-
+    /**
+     * Env variables needed to work
+     */
+    Operations o;
+    String userToInsert;
+    int iterator;
+    DefaultListModel listmodel=new DefaultListModel();
+    
     /**
      * Creates new form Gui
      */
-    Operations o;
     public Gui() {
         o=new Operations();
         initComponents();
@@ -35,6 +49,9 @@ public class Gui extends javax.swing.JFrame {
         pnlSearchUser.setVisible(false);
         pnlAddUser.setVisible(false);
         pnlHome.setVisible(true);
+//        Env variables after gui init
+//Set validation to be on as default
+        cbValidationAddUser.doClick();
     }
 
     /**
@@ -76,14 +93,30 @@ public class Gui extends javax.swing.JFrame {
         cbValidationAddUser = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
         btnSubmitNewUser = new javax.swing.JButton();
+        btnUserGnerateDataForMe = new javax.swing.JButton();
+        btnUserGnerateTenUsers = new javax.swing.JButton();
+        btnUserGnerateTwentyUsers = new javax.swing.JButton();
         pnlSearchUser = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        lblNumberOfSystemUsers2 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        taUserFullInfo = new javax.swing.JTextArea();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jlSearchUsersList = new javax.swing.JList<>();
         pnlDeleteUser = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        lblNumberOfSystemUsers1 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        btnPurgeUsersFromSystem = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jlDeleteUsersList = new javax.swing.JList<>();
+        btnDeleteHighlightedUser = new javax.swing.JButton();
+        cbPurgeUsersSafetyCheck = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("User management tool");
@@ -158,7 +191,7 @@ public class Gui extends javax.swing.JFrame {
             .addGroup(pnlSideLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(btnHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
                 .addComponent(btnAddUsers)
                 .addGap(30, 30, 30)
                 .addComponent(btnSearchUsers)
@@ -176,33 +209,35 @@ public class Gui extends javax.swing.JFrame {
         pnlHome.setBackground(new java.awt.Color(40, 75, 99));
         pnlHome.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        jLabel1.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("MesloLGL Nerd Font", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("User management tool");
 
-        jLabel4.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("Central access");
 
-        jLabel5.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setText("Home");
 
-        lblNumberOfSystemUsers.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        lblNumberOfSystemUsers.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 18)); // NOI18N
         lblNumberOfSystemUsers.setForeground(new java.awt.Color(255, 255, 255));
         lblNumberOfSystemUsers.setText("The system is used by 0 users");
 
-        jLabel7.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("Full list of users:");
 
+        taUsersList.setEditable(false);
         taUsersList.setBackground(new java.awt.Color(40, 75, 99));
         taUsersList.setColumns(20);
-        taUsersList.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        taUsersList.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
         taUsersList.setForeground(new java.awt.Color(255, 255, 255));
         taUsersList.setRows(5);
         taUsersList.setCaretColor(new java.awt.Color(255, 255, 255));
+        taUsersList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(taUsersList);
 
         javax.swing.GroupLayout pnlHomeLayout = new javax.swing.GroupLayout(pnlHome);
@@ -217,7 +252,7 @@ public class Gui extends javax.swing.JFrame {
                             .addComponent(lblNumberOfSystemUsers)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addContainerGap(127, Short.MAX_VALUE))
+                        .addContainerGap(305, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHomeLayout.createSequentialGroup()
                         .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +276,7 @@ public class Gui extends javax.swing.JFrame {
                 .addGap(80, 80, 80)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
 
@@ -291,14 +326,9 @@ public class Gui extends javax.swing.JFrame {
         tfContactMail.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 12)); // NOI18N
         tfContactMail.setToolTipText("");
 
+        cbValidationAddUser.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 12)); // NOI18N
         cbValidationAddUser.setMaximumSize(new java.awt.Dimension(25, 25));
         cbValidationAddUser.setMinimumSize(new java.awt.Dimension(25, 25));
-        cbValidationAddUser.setPreferredSize(new java.awt.Dimension(19, 19));
-        cbValidationAddUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbValidationAddUserActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -313,6 +343,34 @@ public class Gui extends javax.swing.JFrame {
             }
         });
 
+        btnUserGnerateDataForMe.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        btnUserGnerateDataForMe.setForeground(new java.awt.Color(0, 0, 0));
+        btnUserGnerateDataForMe.setText("Generate data for me");
+        btnUserGnerateDataForMe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserGnerateDataForMeActionPerformed(evt);
+            }
+        });
+
+        btnUserGnerateTenUsers.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        btnUserGnerateTenUsers.setForeground(new java.awt.Color(0, 0, 0));
+        btnUserGnerateTenUsers.setText("Generate 10 users for me");
+        btnUserGnerateTenUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserGnerateTenUsersActionPerformed(evt);
+            }
+        });
+
+        btnUserGnerateTwentyUsers.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        btnUserGnerateTwentyUsers.setForeground(new java.awt.Color(0, 0, 0));
+        btnUserGnerateTwentyUsers.setText("Generate 20 users for me");
+        btnUserGnerateTwentyUsers.setToolTipText("");
+        btnUserGnerateTwentyUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserGnerateTwentyUsersActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlAddUserLayout = new javax.swing.GroupLayout(pnlAddUser);
         pnlAddUser.setLayout(pnlAddUserLayout);
         pnlAddUserLayout.setHorizontalGroup(
@@ -321,35 +379,44 @@ public class Gui extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAddUserLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(75, 75, 75))
-                    .addGroup(pnlAddUserLayout.createSequentialGroup()
                         .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlAddUserLayout.createSequentialGroup()
-                                .addComponent(btnSubmitNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(pnlAddUserLayout.createSequentialGroup()
-                                        .addGap(39, 39, 39)
-                                        .addComponent(cbValidationAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(tfNickName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(btnUserGnerateTenUsers))
                             .addGroup(pnlAddUserLayout.createSequentialGroup()
-                                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel13))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfContactMail, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfNickName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfSecondName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(tfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(btnUserGnerateDataForMe, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlAddUserLayout.createSequentialGroup()
+                                .addComponent(tfSecondName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbValidationAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlAddUserLayout.createSequentialGroup()
+                                .addComponent(tfContactMail, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnUserGnerateTwentyUsers)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlAddUserLayout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                        .addGap(229, 229, 229)
-                        .addComponent(jLabel9)
+                        .addComponent(btnSubmitNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddUserLayout.createSequentialGroup()
+                        .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlAddUserLayout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(214, 214, 214))
+                            .addGroup(pnlAddUserLayout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                                .addGap(229, 229, 229)
+                                .addComponent(jLabel9)))
                         .addGap(25, 25, 25))))
         );
         pnlAddUserLayout.setVerticalGroup(
@@ -361,29 +428,31 @@ public class Gui extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addGap(80, 80, 80)
                 .addComponent(jLabel3)
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
                 .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(btnUserGnerateDataForMe))
                 .addGap(18, 18, 18)
-                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(tfSecondName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbValidationAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(tfSecondName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
                 .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(tfNickName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNickName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUserGnerateTenUsers))
                 .addGap(18, 18, 18)
                 .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(tfContactMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(pnlAddUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSubmitNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlAddUserLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, 0)
-                        .addComponent(cbValidationAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tfContactMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUserGnerateTwentyUsers))
+                .addGap(35, 35, 35)
+                .addComponent(btnSubmitNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(132, 132, 132))
         );
 
@@ -392,33 +461,68 @@ public class Gui extends javax.swing.JFrame {
         pnlSearchUser.setBackground(new java.awt.Color(40, 75, 99));
         pnlSearchUser.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        jLabel10.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel10.setText("Search user");
-
-        jLabel15.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel15.setText("Central access");
-
-        jLabel16.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("MesloLGL Nerd Font", 1, 36)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel16.setText("Search user");
+        jLabel16.setText("Search users");
+
+        lblNumberOfSystemUsers2.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 15)); // NOI18N
+        lblNumberOfSystemUsers2.setForeground(new java.awt.Color(255, 255, 255));
+        lblNumberOfSystemUsers2.setText("Select user from the list to display additional information");
+
+        jLabel23.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel23.setText("Full list of users:");
+
+        taUserFullInfo.setEditable(false);
+        taUserFullInfo.setBackground(new java.awt.Color(40, 75, 99));
+        taUserFullInfo.setColumns(20);
+        taUserFullInfo.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        taUserFullInfo.setForeground(new java.awt.Color(255, 255, 255));
+        taUserFullInfo.setRows(5);
+        taUserFullInfo.setCaretColor(new java.awt.Color(255, 255, 255));
+        taUserFullInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane2.setViewportView(taUserFullInfo);
+
+        jLabel14.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel14.setText("Central access");
+
+        jLabel18.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel18.setText("Search users");
+
+        jlSearchUsersList.setBackground(new java.awt.Color(40, 75, 99));
+        jlSearchUsersList.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        jlSearchUsersList.setForeground(new java.awt.Color(255, 255, 255));
+        jlSearchUsersList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jlSearchUsersList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jlSearchUsersListItemSelected(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jlSearchUsersList);
 
         javax.swing.GroupLayout pnlSearchUserLayout = new javax.swing.GroupLayout(pnlSearchUser);
         pnlSearchUser.setLayout(pnlSearchUserLayout);
         pnlSearchUserLayout.setHorizontalGroup(
             pnlSearchUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSearchUserLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchUserLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(pnlSearchUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlSearchUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlSearchUserLayout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(102, 102, 102))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchUserLayout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 313, Short.MAX_VALUE)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 393, Short.MAX_VALUE)
+                        .addComponent(jLabel14))
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNumberOfSystemUsers2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlSearchUserLayout.createSequentialGroup()
+                        .addComponent(jLabel23)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlSearchUserLayout.createSequentialGroup()
+                        .addComponent(jScrollPane5)
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane2)))
                 .addGap(25, 25, 25))
         );
         pnlSearchUserLayout.setVerticalGroup(
@@ -426,11 +530,19 @@ public class Gui extends javax.swing.JFrame {
             .addGroup(pnlSearchUserLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(pnlSearchUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel18))
                 .addGap(80, 80, 80)
                 .addComponent(jLabel16)
-                .addContainerGap(423, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblNumberOfSystemUsers2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlSearchUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
         );
 
         pnlCenter.add(pnlSearchUser);
@@ -438,18 +550,52 @@ public class Gui extends javax.swing.JFrame {
         pnlDeleteUser.setBackground(new java.awt.Color(40, 75, 99));
         pnlDeleteUser.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        jLabel17.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(204, 204, 204));
         jLabel17.setText("Delete user");
 
-        jLabel18.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel18.setText("Central access");
-
-        jLabel19.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("MesloLGL Nerd Font", 1, 36)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel19.setText("Delete user");
+
+        lblNumberOfSystemUsers1.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 17)); // NOI18N
+        lblNumberOfSystemUsers1.setForeground(new java.awt.Color(255, 255, 255));
+        lblNumberOfSystemUsers1.setText("Select user from the list to delete from the system");
+
+        jLabel22.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel22.setText("Full list of users:");
+
+        btnPurgeUsersFromSystem.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 12)); // NOI18N
+        btnPurgeUsersFromSystem.setText("Delete All Users");
+        btnPurgeUsersFromSystem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPurgeUsersFromSystemActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel20.setText("Central access");
+
+        jlDeleteUsersList.setBackground(new java.awt.Color(40, 75, 99));
+        jlDeleteUsersList.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 14)); // NOI18N
+        jlDeleteUsersList.setForeground(new java.awt.Color(255, 255, 255));
+        jlDeleteUsersList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(jlDeleteUsersList);
+
+        btnDeleteHighlightedUser.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 12)); // NOI18N
+        btnDeleteHighlightedUser.setText("Delete highlighted user");
+        btnDeleteHighlightedUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteHighlightedUserActionPerformed(evt);
+            }
+        });
+
+        cbPurgeUsersSafetyCheck.setFont(new java.awt.Font("MesloLGL Nerd Font", 0, 12)); // NOI18N
+        cbPurgeUsersSafetyCheck.setForeground(new java.awt.Color(255, 255, 255));
+        cbPurgeUsersSafetyCheck.setText("Delete all users?");
 
         javax.swing.GroupLayout pnlDeleteUserLayout = new javax.swing.GroupLayout(pnlDeleteUser);
         pnlDeleteUser.setLayout(pnlDeleteUserLayout);
@@ -459,24 +605,47 @@ public class Gui extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(pnlDeleteUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlDeleteUserLayout.createSequentialGroup()
-                        .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(102, 102, 102))
+                        .addGroup(pnlDeleteUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDeleteUserLayout.createSequentialGroup()
-                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(25, 25, 25))
+                        .addGroup(pnlDeleteUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlDeleteUserLayout.createSequentialGroup()
+                                .addComponent(btnDeleteHighlightedUser, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbPurgeUsersSafetyCheck)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPurgeUsersFromSystem, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNumberOfSystemUsers1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDeleteUserLayout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel20)))
+                        .addGap(25, 25, 25))))
         );
         pnlDeleteUserLayout.setVerticalGroup(
             pnlDeleteUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDeleteUserLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(pnlDeleteUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel17))
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel20))
                 .addGap(80, 80, 80)
                 .addComponent(jLabel19)
-                .addContainerGap(423, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNumberOfSystemUsers1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel22)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlDeleteUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPurgeUsersFromSystem, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteHighlightedUser, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbPurgeUsersSafetyCheck))
+                .addGap(20, 20, 20))
         );
 
         pnlCenter.add(pnlDeleteUser);
@@ -493,6 +662,37 @@ public class Gui extends javax.swing.JFrame {
         pnlSearchUser.setVisible(false);
         pnlAddUser.setVisible(false);
         pnlHome.setVisible(true);
+        jlDeleteUsersList.setModel(listmodel);
+
+        
+        //        Refresh main users list window
+        if(o.getMagazine().getUsers().size()>1){
+            iterator=1;
+            taUsersList.setText("");
+            for(User user : o.getMagazine().getUsers()){
+                userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
+                taUsersList.append(userToInsert+"\n");
+                iterator++;
+            }
+            lblNumberOfSystemUsers.setText("The system is used by "+o.getMagazine().getUsers().size()+" users");
+        }
+        else if(o.getMagazine().getUsers().size()==1){
+            iterator=1;
+            taUsersList.setText("");
+            for(User user : o.getMagazine().getUsers()){
+                userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
+                taUsersList.append(userToInsert+"\n");
+                iterator++;
+            }
+            lblNumberOfSystemUsers.setText("The system is used by "+o.getMagazine().getUsers().size()+" user");
+        }
+        else{
+            taUsersList.setText("NONE");
+            lblNumberOfSystemUsers.setText("The system is used by "+"0"+" users");
+        }
+        
+        
+        
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnAddUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUsersActionPerformed
@@ -507,6 +707,22 @@ public class Gui extends javax.swing.JFrame {
         pnlSearchUser.setVisible(true);
         pnlAddUser.setVisible(false);
         pnlHome.setVisible(false);
+        jlSearchUsersList.setModel(listmodel);
+                //        Refresh list of users in list in delete tab
+        listmodel.clear();
+
+        if(o.getMagazine().getUsers().size()>0){
+            iterator=1;
+            for(User user : o.getMagazine().getUsers()){
+                userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
+                listmodel.addElement(userToInsert);
+                iterator++;
+            }
+        }
+        else{
+            listmodel.addElement("NONE");
+        }
+        //        Refresh list of users in list in delete tab
     }//GEN-LAST:event_btnSearchUsersActionPerformed
 
     private void btnDeleteUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUsersActionPerformed
@@ -514,24 +730,142 @@ public class Gui extends javax.swing.JFrame {
         pnlSearchUser.setVisible(false);
         pnlAddUser.setVisible(false);
         pnlHome.setVisible(false);
+        jlDeleteUsersList.setModel(listmodel);
+        
+        
+        //        Refresh list of users in list in delete tab
+        listmodel.clear();
+
+        if(o.getMagazine().getUsers().size()>0){
+            iterator=1;
+            for(User user : o.getMagazine().getUsers()){
+                userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
+                listmodel.addElement(userToInsert);
+                iterator++;
+            }
+        }
+        else{
+            listmodel.addElement("NONE");
+        }
+        //        Refresh list of users in list in delete tab
     }//GEN-LAST:event_btnDeleteUsersActionPerformed
 
-    private void cbValidationAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbValidationAddUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbValidationAddUserActionPerformed
-
     private void btnSubmitNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitNewUserActionPerformed
-        // TODO add your handling code here:
+
         String firstName = tfFirstName.getText();
         String secondName = tfSecondName.getText();
         String nickname = tfNickName.getText();
         String contactMail = tfContactMail.getText();
-        o.addNewUser(new User(firstName, secondName, nickname, contactMail));
-        tfFirstName.setText("");
-        tfSecondName.setText("");
-        tfNickName.setText("");
-        tfContactMail.setText("");
+        if(cbValidationAddUser.isSelected()){
+            if(firstName.isBlank()||secondName.isBlank()||nickname.isBlank()||contactMail.isBlank()){
+                JOptionPane.showMessageDialog(null, "Please fill all fields!","Warning",JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                o.addNewUser(new User(firstName, secondName, nickname, contactMail));
+                tfFirstName.setText("");
+                tfSecondName.setText("");
+                tfNickName.setText("");
+                tfContactMail.setText("");
+            }
+        }
+        else{
+            o.addNewUser(new User(firstName, secondName, nickname, contactMail));
+            tfFirstName.setText("");
+            tfSecondName.setText("");
+            tfNickName.setText("");
+            tfContactMail.setText("");
+        }
     }//GEN-LAST:event_btnSubmitNewUserActionPerformed
+
+    private void btnUserGnerateDataForMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserGnerateDataForMeActionPerformed
+        // TODO add your handling code here:
+
+        tfFirstName.setText(UUID.randomUUID().toString().substring(0, 8));
+        tfSecondName.setText(UUID.randomUUID().toString().substring(0, 8));
+        tfNickName.setText(UUID.randomUUID().toString().substring(0, 8));
+        tfContactMail.setText(UUID.randomUUID().toString().substring(0, 8)+"@"+UUID.randomUUID().toString().substring(0, 6)+".com");
+    }//GEN-LAST:event_btnUserGnerateDataForMeActionPerformed
+
+    private void btnPurgeUsersFromSystemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPurgeUsersFromSystemActionPerformed
+        if(cbPurgeUsersSafetyCheck.isSelected()){
+            o.getMagazine().getUsers().clear();
+            
+            //        START Refresh list of users in list in delete tab
+            listmodel.clear();
+            if(!o.getMagazine().getUsers().isEmpty()){
+                iterator=1;
+                for(User user : o.getMagazine().getUsers()){
+                    userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
+                    listmodel.addElement(userToInsert);
+                    iterator++;
+                }
+            }
+            else{
+                listmodel.addElement("NONE");
+            }
+            //        END Refresh list of users in list in delete tab 
+        }
+        else{
+        JOptionPane.showMessageDialog(null, "Please confirm that you would like to delete all users","Warning",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnPurgeUsersFromSystemActionPerformed
+
+    private void btnUserGnerateTenUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserGnerateTenUsersActionPerformed
+
+    for(int i=0;i<10;i++){
+        tfFirstName.setText(UUID.randomUUID().toString().substring(0, 8));
+        tfSecondName.setText(UUID.randomUUID().toString().substring(0, 8));
+        tfNickName.setText(UUID.randomUUID().toString().substring(0, 8));
+        tfContactMail.setText(UUID.randomUUID().toString().substring(0, 8)+"@"+UUID.randomUUID().toString().substring(0, 6)+".com");
+        btnSubmitNewUser.doClick();
+    }
+        
+    }//GEN-LAST:event_btnUserGnerateTenUsersActionPerformed
+
+    private void btnDeleteHighlightedUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteHighlightedUserActionPerformed
+        int userToDeleteIndex = jlDeleteUsersList.getSelectedIndex();
+        o.getMagazine().removeUser(userToDeleteIndex);
+        
+        
+        //        START Refresh list of users in list in delete tab
+        listmodel.clear();
+        if(!o.getMagazine().getUsers().isEmpty()){
+            iterator=1;
+            for(User user : o.getMagazine().getUsers()){
+                userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
+                listmodel.addElement(userToInsert);
+                iterator++;
+            }
+        }
+        else{
+            listmodel.addElement("NONE");
+        }
+        //        END Refresh list of users in list in delete tab
+    }//GEN-LAST:event_btnDeleteHighlightedUserActionPerformed
+
+    private void btnUserGnerateTwentyUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserGnerateTwentyUsersActionPerformed
+
+        for(int i=0;i<20;i++){
+        tfFirstName.setText(UUID.randomUUID().toString().substring(0, 8));
+        tfSecondName.setText(UUID.randomUUID().toString().substring(0, 8));
+        tfNickName.setText(UUID.randomUUID().toString().substring(0, 8));
+        tfContactMail.setText(UUID.randomUUID().toString().substring(0, 8)+"@"+UUID.randomUUID().toString().substring(0, 6)+".com");
+        btnSubmitNewUser.doClick();
+    }
+    }//GEN-LAST:event_btnUserGnerateTwentyUsersActionPerformed
+
+    private void jlSearchUsersListItemSelected(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlSearchUsersListItemSelected
+
+        int selectedIndex = jlSearchUsersList.getSelectedIndex();
+        User selectedUser = o.getMagazine().getUsers().get(selectedIndex);
+        
+        taUserFullInfo.setText(
+                "User's first name: "+"\n"+selectedUser.getFirstName()+"\n"+
+                "User's second name: "+"\n"+selectedUser.getSecondName()+"\n"+
+                "User's nickname: "+"\n"+selectedUser.getNickname()+"\n"+
+                "User's e-mail: "+"\n"+selectedUser.getContactEmail()+"\n"
+                );
+    }//GEN-LAST:event_jlSearchUsersListItemSelected
 
     /**
      * @param args the command line arguments
@@ -569,22 +903,30 @@ public class Gui extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddUsers;
+    private javax.swing.JButton btnDeleteHighlightedUser;
     private javax.swing.JButton btnDeleteUsers;
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnPurgeUsersFromSystem;
     private javax.swing.JButton btnSearchUsers;
     private javax.swing.JButton btnSubmitNewUser;
+    private javax.swing.JButton btnUserGnerateDataForMe;
+    private javax.swing.JButton btnUserGnerateTenUsers;
+    private javax.swing.JButton btnUserGnerateTwentyUsers;
+    private javax.swing.JCheckBox cbPurgeUsersSafetyCheck;
     private javax.swing.JCheckBox cbValidationAddUser;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -593,7 +935,14 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JList<String> jlDeleteUsersList;
+    private javax.swing.JList<String> jlSearchUsersList;
     private javax.swing.JLabel lblNumberOfSystemUsers;
+    private javax.swing.JLabel lblNumberOfSystemUsers1;
+    private javax.swing.JLabel lblNumberOfSystemUsers2;
     private javax.swing.JPanel pnlAddUser;
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlDeleteUser;
@@ -601,6 +950,7 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JPanel pnlRoot;
     private javax.swing.JPanel pnlSearchUser;
     private javax.swing.JPanel pnlSide;
+    private javax.swing.JTextArea taUserFullInfo;
     private javax.swing.JTextArea taUsersList;
     private javax.swing.JTextField tfContactMail;
     private javax.swing.JTextField tfFirstName;

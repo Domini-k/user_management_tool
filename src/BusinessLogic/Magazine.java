@@ -15,5 +15,8 @@ public class Magazine {
     public ArrayList<User> getUsers() {
         return users;
     }
+    public void removeUser(int userIndex){
+    users.remove(userIndex);
+    }
        private ArrayList <User> users = new ArrayList<>();
 }

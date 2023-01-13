@@ -10,10 +10,14 @@ package BusinessLogic;
  */
 public class Operations {
     
-    Magazine magazine = new Magazine();
+    Magazine m = new Magazine();
+
+    public Magazine getMagazine() {
+        return m;
+    }
     
     public void addNewUser(User user){
-        magazine.getUsers().add(new User(user.getFirstName(),user.getSecondName(),user.getNickname(),user.getContactEmail()));
+        m.getUsers().add(new User(user.getFirstName(),user.getSecondName(),user.getNickname(),user.getContactEmail()));
     }
     
 }
