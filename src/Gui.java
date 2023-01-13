@@ -761,11 +761,16 @@ public class Gui extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Please fill all fields!","Warning",JOptionPane.ERROR_MESSAGE);
             }
             else{
+                if(contactMail.contains("@")&&contactMail.contains(".")){
                 o.addNewUser(new User(firstName, secondName, nickname, contactMail));
                 tfFirstName.setText("");
                 tfSecondName.setText("");
                 tfNickName.setText("");
                 tfContactMail.setText("");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Incorrect e-mail address, please correct!","Warning",JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
         else{
