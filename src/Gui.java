@@ -4,6 +4,7 @@
  */
 import BusinessLogic.Operations;
 import BusinessLogic.User;
+import java.io.Console;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -12,24 +13,27 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+
 /**
  *
  * @author Dominik
  */
 public class Gui extends javax.swing.JFrame {
+
     /**
      * Env variables needed to work
      */
     Operations o;
     String userToInsert;
     int iterator;
-    DefaultListModel listmodel=new DefaultListModel();
-    
+    DefaultListModel listModelSearch = new DefaultListModel();
+    DefaultListModel listModelDelete = new DefaultListModel();
+
     /**
      * Creates new form Gui
      */
     public Gui() {
-        o=new Operations();
+        o = new Operations();
         initComponents();
 //        Styling of buttons
         btnSearchUsers.setOpaque(false);
@@ -662,37 +666,32 @@ public class Gui extends javax.swing.JFrame {
         pnlSearchUser.setVisible(false);
         pnlAddUser.setVisible(false);
         pnlHome.setVisible(true);
-        jlDeleteUsersList.setModel(listmodel);
 
-        
         //        Refresh main users list window
-        if(o.getMagazine().getUsers().size()>1){
-            iterator=1;
+        if (o.getMagazine().getUsers().size() > 1) {
+            iterator = 1;
             taUsersList.setText("");
-            for(User user : o.getMagazine().getUsers()){
-                userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
-                taUsersList.append(userToInsert+"\n");
+            for (User user : o.getMagazine().getUsers()) {
+                userToInsert = iterator + ". " + user.getFirstName() + " \"" + user.getNickname() + "\"" + " " + user.getSecondName();
+                taUsersList.append(userToInsert + "\n");
                 iterator++;
             }
-            lblNumberOfSystemUsers.setText("The system is used by "+o.getMagazine().getUsers().size()+" users");
-        }
-        else if(o.getMagazine().getUsers().size()==1){
-            iterator=1;
+            lblNumberOfSystemUsers.setText("The system is used by " + o.getMagazine().getUsers().size() + " users");
+        } else if (o.getMagazine().getUsers().size() == 1) {
+            iterator = 1;
             taUsersList.setText("");
-            for(User user : o.getMagazine().getUsers()){
-                userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
-                taUsersList.append(userToInsert+"\n");
+            for (User user : o.getMagazine().getUsers()) {
+                userToInsert = iterator + ". " + user.getFirstName() + " \"" + user.getNickname() + "\"" + " " + user.getSecondName();
+                taUsersList.append(userToInsert + "\n");
                 iterator++;
             }
-            lblNumberOfSystemUsers.setText("The system is used by "+o.getMagazine().getUsers().size()+" user");
-        }
-        else{
+            lblNumberOfSystemUsers.setText("The system is used by " + o.getMagazine().getUsers().size() + " user");
+        } else {
             taUsersList.setText("NONE");
-            lblNumberOfSystemUsers.setText("The system is used by "+"0"+" users");
+            lblNumberOfSystemUsers.setText("The system is used by " + "0" + " users");
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnAddUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUsersActionPerformed
@@ -707,20 +706,19 @@ public class Gui extends javax.swing.JFrame {
         pnlSearchUser.setVisible(true);
         pnlAddUser.setVisible(false);
         pnlHome.setVisible(false);
-        jlSearchUsersList.setModel(listmodel);
-                //        Refresh list of users in list in delete tab
-        listmodel.clear();
+        jlSearchUsersList.setModel(listModelSearch);
+        //        Refresh list of users in list in delete tab
+        listModelSearch.clear();
 
-        if(o.getMagazine().getUsers().size()>0){
-            iterator=1;
-            for(User user : o.getMagazine().getUsers()){
-                userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
-                listmodel.addElement(userToInsert);
+        if (o.getMagazine().getUsers().size() > 0) {
+            iterator = 1;
+            for (User user : o.getMagazine().getUsers()) {
+                userToInsert = iterator + ". " + user.getFirstName() + " \"" + user.getNickname() + "\"" + " " + user.getSecondName();
+                listModelSearch.addElement(userToInsert);
                 iterator++;
             }
-        }
-        else{
-            listmodel.addElement("NONE");
+        } else {
+            listModelSearch.addElement("NONE");
         }
         //        Refresh list of users in list in delete tab
     }//GEN-LAST:event_btnSearchUsersActionPerformed
@@ -730,22 +728,20 @@ public class Gui extends javax.swing.JFrame {
         pnlSearchUser.setVisible(false);
         pnlAddUser.setVisible(false);
         pnlHome.setVisible(false);
-        jlDeleteUsersList.setModel(listmodel);
-        
-        
-        //        Refresh list of users in list in delete tab
-        listmodel.clear();
+        jlDeleteUsersList.setModel(listModelDelete);
 
-        if(o.getMagazine().getUsers().size()>0){
-            iterator=1;
-            for(User user : o.getMagazine().getUsers()){
-                userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
-                listmodel.addElement(userToInsert);
+        //        Refresh list of users in list in delete tab
+        listModelDelete.clear();
+
+        if (o.getMagazine().getUsers().size() > 0) {
+            iterator = 1;
+            for (User user : o.getMagazine().getUsers()) {
+                userToInsert = iterator + ". " + user.getFirstName() + " \"" + user.getNickname() + "\"" + " " + user.getSecondName();
+                listModelDelete.addElement(userToInsert);
                 iterator++;
             }
-        }
-        else{
-            listmodel.addElement("NONE");
+        } else {
+            listModelDelete.addElement("NONE");
         }
         //        Refresh list of users in list in delete tab
     }//GEN-LAST:event_btnDeleteUsersActionPerformed
@@ -756,24 +752,21 @@ public class Gui extends javax.swing.JFrame {
         String secondName = tfSecondName.getText();
         String nickname = tfNickName.getText();
         String contactMail = tfContactMail.getText();
-        if(cbValidationAddUser.isSelected()){
-            if(firstName.isBlank()||secondName.isBlank()||nickname.isBlank()||contactMail.isBlank()){
-                JOptionPane.showMessageDialog(null, "Please fill all fields!","Warning",JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-                if(contactMail.contains("@")&&contactMail.contains(".")){
-                o.addNewUser(new User(firstName, secondName, nickname, contactMail));
-                tfFirstName.setText("");
-                tfSecondName.setText("");
-                tfNickName.setText("");
-                tfContactMail.setText("");
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Incorrect e-mail address, please correct!","Warning",JOptionPane.ERROR_MESSAGE);
+        if (cbValidationAddUser.isSelected()) {
+            if (firstName.isBlank() || secondName.isBlank() || nickname.isBlank() || contactMail.isBlank()) {
+                JOptionPane.showMessageDialog(null, "Please fill all fields!", "Warning", JOptionPane.ERROR_MESSAGE);
+            } else {
+                if (contactMail.contains("@") && contactMail.contains(".") && contactMail.length() > 4) {
+                    o.addNewUser(new User(firstName, secondName, nickname, contactMail));
+                    tfFirstName.setText("");
+                    tfSecondName.setText("");
+                    tfNickName.setText("");
+                    tfContactMail.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect e-mail address, please correct!", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        }
-        else{
+        } else {
             o.addNewUser(new User(firstName, secondName, nickname, contactMail));
             tfFirstName.setText("");
             tfSecondName.setText("");
@@ -788,88 +781,94 @@ public class Gui extends javax.swing.JFrame {
         tfFirstName.setText(UUID.randomUUID().toString().substring(0, 8));
         tfSecondName.setText(UUID.randomUUID().toString().substring(0, 8));
         tfNickName.setText(UUID.randomUUID().toString().substring(0, 8));
-        tfContactMail.setText(UUID.randomUUID().toString().substring(0, 8)+"@"+UUID.randomUUID().toString().substring(0, 6)+".com");
+        tfContactMail.setText(UUID.randomUUID().toString().substring(0, 8) + "@" + UUID.randomUUID().toString().substring(0, 6) + ".com");
     }//GEN-LAST:event_btnUserGnerateDataForMeActionPerformed
 
     private void btnPurgeUsersFromSystemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPurgeUsersFromSystemActionPerformed
-        if(cbPurgeUsersSafetyCheck.isSelected()){
+        if (cbPurgeUsersSafetyCheck.isSelected()) {
             o.getMagazine().getUsers().clear();
-            
+
             //        START Refresh list of users in list in delete tab
-            listmodel.clear();
-            if(!o.getMagazine().getUsers().isEmpty()){
-                iterator=1;
-                for(User user : o.getMagazine().getUsers()){
-                    userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
-                    listmodel.addElement(userToInsert);
+            listModelDelete.clear();
+            listModelSearch.clear();
+            if (!o.getMagazine().getUsers().isEmpty()) {
+                iterator = 1;
+                for (User user : o.getMagazine().getUsers()) {
+                    userToInsert = iterator + ". " + user.getFirstName() + " \"" + user.getNickname() + "\"" + " " + user.getSecondName();
+                    listModelDelete.addElement(userToInsert);
+                    listModelSearch.addElement(userToInsert);
                     iterator++;
                 }
-            }
-            else{
-                listmodel.addElement("NONE");
+            } else {
+                listModelDelete.addElement("NONE");
+                listModelSearch.addElement("NONE");
             }
             //        END Refresh list of users in list in delete tab 
-        }
-        else{
-        JOptionPane.showMessageDialog(null, "Please confirm that you would like to delete all users","Warning",JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please confirm that you would like to delete all users", "Warning", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnPurgeUsersFromSystemActionPerformed
 
     private void btnUserGnerateTenUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserGnerateTenUsersActionPerformed
 
-    for(int i=0;i<10;i++){
-        tfFirstName.setText(UUID.randomUUID().toString().substring(0, 8));
-        tfSecondName.setText(UUID.randomUUID().toString().substring(0, 8));
-        tfNickName.setText(UUID.randomUUID().toString().substring(0, 8));
-        tfContactMail.setText(UUID.randomUUID().toString().substring(0, 8)+"@"+UUID.randomUUID().toString().substring(0, 6)+".com");
-        btnSubmitNewUser.doClick();
-    }
-        
+        for (int i = 0; i < 10; i++) {
+            tfFirstName.setText(UUID.randomUUID().toString().substring(0, 8));
+            tfSecondName.setText(UUID.randomUUID().toString().substring(0, 8));
+            tfNickName.setText(UUID.randomUUID().toString().substring(0, 8));
+            tfContactMail.setText(UUID.randomUUID().toString().substring(0, 8) + "@" + UUID.randomUUID().toString().substring(0, 6) + ".com");
+            btnSubmitNewUser.doClick();
+        }
+
     }//GEN-LAST:event_btnUserGnerateTenUsersActionPerformed
 
     private void btnDeleteHighlightedUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteHighlightedUserActionPerformed
-        int userToDeleteIndex = jlDeleteUsersList.getSelectedIndex();
-        o.getMagazine().removeUser(userToDeleteIndex);
-        
-        
-        //        START Refresh list of users in list in delete tab
-        listmodel.clear();
-        if(!o.getMagazine().getUsers().isEmpty()){
-            iterator=1;
-            for(User user : o.getMagazine().getUsers()){
-                userToInsert = iterator+". "+user.getFirstName()+" \""+user.getNickname()+"\""+" "+user.getSecondName();
-                listmodel.addElement(userToInsert);
-                iterator++;
+
+        if (jlDeleteUsersList.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please select user to delete!", "Warning", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int userToDeleteIndex = jlDeleteUsersList.getSelectedIndex();
+            o.getMagazine().removeUser(userToDeleteIndex);
+            //        START Refresh list of users in list in delete tab
+            listModelDelete.clear();
+            listModelSearch.clear();
+            if (!o.getMagazine().getUsers().isEmpty()) {
+                iterator = 1;
+                for (User user : o.getMagazine().getUsers()) {
+                    userToInsert = iterator + ". " + user.getFirstName() + " \"" + user.getNickname() + "\"" + " " + user.getSecondName();
+                    listModelDelete.addElement(userToInsert);
+                    listModelSearch.addElement(userToInsert);
+                    iterator++;
+                }
+            } else {
+                listModelDelete.addElement("NONE");
+                listModelSearch.addElement("NONE");
             }
+            //        END Refresh list of users in list in delete tab
         }
-        else{
-            listmodel.addElement("NONE");
-        }
-        //        END Refresh list of users in list in delete tab
     }//GEN-LAST:event_btnDeleteHighlightedUserActionPerformed
 
     private void btnUserGnerateTwentyUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserGnerateTwentyUsersActionPerformed
 
-        for(int i=0;i<20;i++){
-        tfFirstName.setText(UUID.randomUUID().toString().substring(0, 8));
-        tfSecondName.setText(UUID.randomUUID().toString().substring(0, 8));
-        tfNickName.setText(UUID.randomUUID().toString().substring(0, 8));
-        tfContactMail.setText(UUID.randomUUID().toString().substring(0, 8)+"@"+UUID.randomUUID().toString().substring(0, 6)+".com");
-        btnSubmitNewUser.doClick();
-    }
+        for (int i = 0; i < 20; i++) {
+            tfFirstName.setText(UUID.randomUUID().toString().substring(0, 8));
+            tfSecondName.setText(UUID.randomUUID().toString().substring(0, 8));
+            tfNickName.setText(UUID.randomUUID().toString().substring(0, 8));
+            tfContactMail.setText(UUID.randomUUID().toString().substring(0, 8) + "@" + UUID.randomUUID().toString().substring(0, 6) + ".com");
+            btnSubmitNewUser.doClick();
+        }
     }//GEN-LAST:event_btnUserGnerateTwentyUsersActionPerformed
 
     private void jlSearchUsersListItemSelected(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlSearchUsersListItemSelected
 
         int selectedIndex = jlSearchUsersList.getSelectedIndex();
         User selectedUser = o.getMagazine().getUsers().get(selectedIndex);
-        
+
         taUserFullInfo.setText(
-                "User's first name: "+"\n"+selectedUser.getFirstName()+"\n"+
-                "User's second name: "+"\n"+selectedUser.getSecondName()+"\n"+
-                "User's nickname: "+"\n"+selectedUser.getNickname()+"\n"+
-                "User's e-mail: "+"\n"+selectedUser.getContactEmail()+"\n"
-                );
+                "User's first name: " + "\n" + selectedUser.getFirstName() + "\n"
+                + "User's second name: " + "\n" + selectedUser.getSecondName() + "\n"
+                + "User's nickname: " + "\n" + selectedUser.getNickname() + "\n"
+                + "User's e-mail: " + "\n" + selectedUser.getContactEmail() + "\n"
+        );
     }//GEN-LAST:event_jlSearchUsersListItemSelected
 
     /**
